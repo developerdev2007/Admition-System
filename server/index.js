@@ -3,19 +3,19 @@ import Express from "express";
 import cors from "cors";
 import { User } from "./DB/main.js";
 import XLSX from "xlsx";
+import dotenv from "dotenv";
 import fs from "fs";
 
-const DB =
-  "mongodb+srv://vishu7im:teranaam.im7@cluster0.4tmteql.mongodb.net/counseling";
+dotenv.config();
+const DB = process.env.MONGO_URI;
 
 const app = Express();
-const PORT = 8000;
-
+const PORT = process.env.PORT || 8000;
 app.use(Express.json());
 app.use(cors());
 
 app.get("/", (req, res) => {
-  res.send("server vishal");
+  res.send("server Admition System");
 });
 
 // Compare by age (DOB in ascending order)
@@ -126,20 +126,19 @@ app.post("/Report", async (req, res) => {
 
     const results = await User.find(query).sort({ Percentage: -1 }).lean();
 
-    //  merge for catogry 
+    //  merge for catogry
 
-let mergedMap = {}
+    let mergedMap = {};
 
-  results.map((item)=>{
-    if (!mergedMap[item.RegistrationNo]) {
-      mergedMap[item.RegistrationNo] = { ...item };
-    } else {
-      mergedMap[item.RegistrationNo].Category += '/' + item.Category;
-    }
-  })
+    results.map((item) => {
+      if (!mergedMap[item.RegistrationNo]) {
+        mergedMap[item.RegistrationNo] = { ...item };
+      } else {
+        mergedMap[item.RegistrationNo].Category += "/" + item.Category;
+      }
+    });
 
-  const expected = Object.values(mergedMap)
-
+    const expected = Object.values(mergedMap);
 
     let studentsData;
     if (DET === 1 && DAT === 0) {
@@ -184,7 +183,6 @@ let mergedMap = {}
       });
 
       studentsData.sort((a, b) => {
-
         // First, compare by percentage in descending order
         if (b.Percentage !== a.Percentage) {
           return b.Percentage - a.Percentage;
@@ -216,24 +214,21 @@ let mergedMap = {}
       });
     }
 
+    if (DET === 1 && DAT === 0) {
+      //  setup rank
+      studentsData = studentsData.map((data, i) => {
+        data.Rank = "L" + (parseInt(i) + parseInt(1));
 
-    if (DET === 1 && DAT === 0) { 
- //  setup rank
-    studentsData = studentsData.map((data, i) => {
-      data.Rank = "L"+(parseInt(i) + parseInt(1));
+        return data;
+      });
+    } else if (DET === 0 && DAT === 1) {
+      //  setup rank
+      studentsData = studentsData.map((data, i) => {
+        data.Rank = "D" + (parseInt(i) + parseInt(1));
 
-      return data;
-    });
-    } else if (DET === 0 && DAT === 1) { 
- //  setup rank
-    studentsData = studentsData.map((data, i) => {
-      data.Rank = "D"+(parseInt(i) + parseInt(1));
-
-      return data;
-    });
+        return data;
+      });
     }
-
-   
 
     // rule function
 
@@ -379,34 +374,14 @@ app.get("/userlist/:id", async (req, res) => {
       });
     }
 
-    let studentsListData
-    if (id === "Diploma Engg Lateral Entry") { 
+    let studentsListData;
+    if (id === "Diploma Engg Lateral Entry") {
       //  setup rank
-         //  setup rank
-     studentsListData = studentsData.map((data, i) => {
-      let obj = {
-        id: (parseInt(i) + parseInt(1)),
-        Rank: "L"+(parseInt(i) + parseInt(1)),
-        Registration: data.RegistrationNo,
-        Name: data.Name,
-        Course: data.Course,
-        Cateogry: data.Category,
-        Gender: data.Gender,
-        DOB: data.DOB,
-        Addhaar: data.AadhaarNo,
-        Percentage: data.Percentage,
-        Mobile: data.StudentMobileNo,
-        view: data._id,
-      };
-
-      return obj;
-    });
-         } else if (id === "Diploma Engg") { 
       //  setup rank
       studentsListData = studentsData.map((data, i) => {
         let obj = {
-          id: i + 1,
-          Rank: "D"+(parseInt(i) + parseInt(1)),
+          id: parseInt(i) + parseInt(1),
+          Rank: "L" + (parseInt(i) + parseInt(1)),
           Registration: data.RegistrationNo,
           Name: data.Name,
           Course: data.Course,
@@ -418,12 +393,31 @@ app.get("/userlist/:id", async (req, res) => {
           Mobile: data.StudentMobileNo,
           view: data._id,
         };
-  
+
         return obj;
       });
-         }
-     
-  
+    } else if (id === "Diploma Engg") {
+      //  setup rank
+      studentsListData = studentsData.map((data, i) => {
+        let obj = {
+          id: i + 1,
+          Rank: "D" + (parseInt(i) + parseInt(1)),
+          Registration: data.RegistrationNo,
+          Name: data.Name,
+          Course: data.Course,
+          Cateogry: data.Category,
+          Gender: data.Gender,
+          DOB: data.DOB,
+          Addhaar: data.AadhaarNo,
+          Percentage: data.Percentage,
+          Mobile: data.StudentMobileNo,
+          view: data._id,
+        };
+
+        return obj;
+      });
+    }
+
     res.status(200).json({ data: studentsListData });
   } catch (error) {
     res.status(500).json({ error: "An error occurred" });
@@ -435,7 +429,7 @@ mongoose
   .connect(DB)
   .then(() => {
     app.listen(PORT, () => {
-      console.log(`connection success ${PORT}`);
+      console.log(`connection success ${PORT}👍👍`);
     });
   })
   .catch((e) => {
