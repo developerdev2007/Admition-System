@@ -1,0 +1,28 @@
+* {
+    margin: 0px;
+    padding: 0px;
+    box-sizing: border-box;
+  }
+  
+  html {
+    font-size: 100%;
+  }
+  
+
+  
+  
+  .alert_box {
+    position: fixed;
+    display: flex;
+    justify-content: center;
+    top: 30px;
+    left: 0;
+    width: 100%;
+    z-index: 9999;
+   
+  }
+  .alert {
+    width: 30%;
+    
+  }
+ 
