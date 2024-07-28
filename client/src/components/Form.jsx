@@ -45,7 +45,10 @@ let validationSchema = Yup.object({
   boardName: Yup.string().required("boardName Name  is required"),
   marksObtained: Yup.number().required("marksObtained Name  is required"),
   totalMarks: Yup.number().required("totalMarks Name  is required"),
-  aadhaarNo: Yup.string().required("aadhaarNo Name  is required"),
+  aadhaarNo: Yup.number()
+    .required("aadhaarNo  is required")
+    .min(100000000000, "Aadhaar Number must be of at least 12 digits")
+    .typeError("Invalid aadhaar Number"),
   address: Yup.string().required("address Name  is required"),
   studentMobileNo: Yup.number()
     .required("Student Mobile Number is required")
@@ -201,9 +204,9 @@ const FormExample = () => {
   // eslint-disable-next-line
 
   return (
-    <div className="min-h-screen  p-6 flex items-center justify-center  bg-green-100">
-      <div className="bg-white p-8 rounded-lg shadow-  max-w-4xl">
-        <h1 className="text-2xl font-semibold text-green-600 mb-4">{_id}</h1>
+    <div className="flex items-center justify-center min-h-screen p-6 bg-green-100">
+      <div className="max-w-4xl p-8 bg-white rounded-lg shadow-">
+        <h1 className="mb-4 text-2xl font-semibold text-green-600">{_id}</h1>
         <Formik
           initialValues={initialValues}
           validationSchema={validationSchema}
@@ -214,7 +217,7 @@ const FormExample = () => {
               <div className="flex flex-col">
                 <label
                   htmlFor="RegistrationNo"
-                  className="text-sm font-medium text-gray-700 mb-1"
+                  className="mb-1 text-sm font-medium text-gray-700"
                 >
                   Registration No
                 </label>
@@ -222,7 +225,7 @@ const FormExample = () => {
                   type="number"
                   id="RegistrationNo"
                   name="RegistrationNo"
-                  className="p-2 border rounded-md border-green-400 ring-green-300 focus:outline-none ring ring-opacity-40"
+                  className="p-2 border border-green-400 rounded-md ring-green-300 focus:outline-none ring ring-opacity-40"
                 />
                 <ErrorMessage
                   name="RegistrationNo"
@@ -230,11 +233,11 @@ const FormExample = () => {
                   className="text-red-500"
                 />
               </div>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
                 <div className="flex flex-col">
                   <label
                     htmlFor="candidateName"
-                    className="text-sm font-medium text-gray-700 mb-1"
+                    className="mb-1 text-sm font-medium text-gray-700"
                   >
                     Candidate Name
                   </label>
@@ -242,7 +245,7 @@ const FormExample = () => {
                     type="text"
                     id="candidateName"
                     name="candidateName"
-                    className="p-2 border rounded-md border-green-400 ring-green-300 focus:outline-none ring ring-opacity-40"
+                    className="p-2 border border-green-400 rounded-md ring-green-300 focus:outline-none ring ring-opacity-40"
                   />
                   <ErrorMessage
                     name="candidateName"
@@ -253,7 +256,7 @@ const FormExample = () => {
                 <div className="flex flex-col">
                   <label
                     htmlFor="fatherName"
-                    className="text-sm font-medium text-gray-700 mb-1"
+                    className="mb-1 text-sm font-medium text-gray-700"
                   >
                     Father's Name
                   </label>
@@ -261,7 +264,7 @@ const FormExample = () => {
                     type="text"
                     id="fatherName"
                     name="fatherName"
-                    className="p-2 border rounded-md border-green-400 ring-green-300 focus:outline-none ring ring-opacity-40"
+                    className="p-2 border border-green-400 rounded-md ring-green-300 focus:outline-none ring ring-opacity-40"
                   />
                   <ErrorMessage
                     name="fatherName"
@@ -270,11 +273,11 @@ const FormExample = () => {
                   />
                 </div>
               </div>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
                 <div className="flex flex-col">
                   <label
                     htmlFor="motherName"
-                    className="text-sm font-medium text-gray-700 mb-1"
+                    className="mb-1 text-sm font-medium text-gray-700"
                   >
                     Mother's Name
                   </label>
@@ -282,7 +285,7 @@ const FormExample = () => {
                     type="text"
                     id="motherName"
                     name="motherName"
-                    className="p-2 border rounded-md border-green-400 ring-green-300 focus:outline-none ring ring-opacity-40"
+                    className="p-2 border border-green-400 rounded-md ring-green-300 focus:outline-none ring ring-opacity-40"
                   />
                   <ErrorMessage
                     name="motherName"
@@ -293,7 +296,7 @@ const FormExample = () => {
                 <div className="flex flex-col">
                   <label
                     htmlFor="dateOfBirth"
-                    className="text-sm font-medium text-gray-700 mb-1"
+                    className="mb-1 text-sm font-medium text-gray-700"
                   >
                     Date of Birth
                   </label>
@@ -301,7 +304,7 @@ const FormExample = () => {
                     type="text"
                     id="dateOfBirth"
                     name="dateOfBirth"
-                    className="p-2 border rounded-md border-green-400 ring-green-300 focus:outline-none ring ring-opacity-40"
+                    className="p-2 border border-green-400 rounded-md ring-green-300 focus:outline-none ring ring-opacity-40"
                   />
                   <ErrorMessage
                     name="dateOfBirth"
@@ -315,7 +318,7 @@ const FormExample = () => {
                 <div className="flex flex-col">
                   <label
                     htmlFor="Section"
-                    className="text-sm font-medium text-gray-700 mb-1"
+                    className="mb-1 text-sm font-medium text-gray-700"
                   >
                     Qualification
                   </label>
@@ -323,7 +326,7 @@ const FormExample = () => {
                     as="select"
                     id="Section"
                     name="Section"
-                    className="p-2 border rounded-md border-green-400 ring-green-300 focus:outline-none ring ring-opacity-40"
+                    className="p-2 border border-green-400 rounded-md ring-green-300 focus:outline-none ring ring-opacity-40"
                   >
                     <option value="">Qualification</option>
                     {LateralSection.map((lateralSection) => (
@@ -343,14 +346,14 @@ const FormExample = () => {
                 ""
               )}
               <div className="flex flex-col">
-                <label className="text-sm font-medium text-gray-700 mb-1">
+                <label className="mb-1 text-sm font-medium text-gray-700">
                   Gender
                 </label>
                 <Field
                   as="select"
                   id="gender"
                   name="gender"
-                  className="p-2 border rounded-md border-green-400 ring-green-300 focus:outline-none ring ring-opacity-40"
+                  className="p-2 border border-green-400 rounded-md ring-green-300 focus:outline-none ring ring-opacity-40"
                 >
                   <option value="">Select Gender</option>
                   <option value="male">Male</option>
@@ -363,11 +366,11 @@ const FormExample = () => {
                 />
               </div>
 
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+              <div className="grid grid-cols-1 gap-6 md:grid-cols-3">
                 <div className="flex flex-col">
                   <label
                     htmlFor="familyId"
-                    className="text-sm font-medium text-gray-700 mb-1"
+                    className="mb-1 text-sm font-medium text-gray-700"
                   >
                     Family ID
                   </label>
@@ -375,7 +378,7 @@ const FormExample = () => {
                     type="text"
                     id="familyId"
                     name="familyId"
-                    className="p-2 border rounded-md border-green-400 ring-green-300 focus:outline-none ring ring-opacity-40"
+                    className="p-2 border border-green-400 rounded-md ring-green-300 focus:outline-none ring ring-opacity-40"
                   />
                   <ErrorMessage
                     name="familyId"
@@ -386,7 +389,7 @@ const FormExample = () => {
                 <div className="flex flex-col">
                   <label
                     htmlFor="category"
-                    className="text-sm font-medium text-gray-700 mb-1"
+                    className="mb-1 text-sm font-medium text-gray-700"
                   >
                     Category
                   </label>
@@ -394,7 +397,7 @@ const FormExample = () => {
                     as="select"
                     id="category"
                     name="category"
-                    className="p-2 border rounded-md border-green-400 ring-green-300 focus:outline-none ring ring-opacity-40"
+                    className="p-2 border border-green-400 rounded-md ring-green-300 focus:outline-none ring ring-opacity-40"
                     onChange={(e) => {
                       handleCategoryChange(e);
                       handleChange(e);
@@ -416,7 +419,7 @@ const FormExample = () => {
                 <div className="flex flex-col">
                   <label
                     htmlFor="income"
-                    className="text-sm font-medium text-gray-700 mb-1"
+                    className="mb-1 text-sm font-medium text-gray-700"
                   >
                     Income
                   </label>
@@ -437,11 +440,11 @@ const FormExample = () => {
                 </div>
               </div>
 
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
                 <div className="flex flex-col">
                   <label
                     htmlFor="boardRollNo"
-                    className="text-sm font-medium text-gray-700 mb-1"
+                    className="mb-1 text-sm font-medium text-gray-700"
                   >
                     Board Roll No
                   </label>
@@ -449,7 +452,7 @@ const FormExample = () => {
                     type="number"
                     id="boardRollNo"
                     name="boardRollNo"
-                    className="p-2 border rounded-md border-green-400 ring-green-300 focus:outline-none ring ring-opacity-40"
+                    className="p-2 border border-green-400 rounded-md ring-green-300 focus:outline-none ring ring-opacity-40"
                   />
                   <ErrorMessage
                     name="boardRollNo"
@@ -460,7 +463,7 @@ const FormExample = () => {
                 <div className="flex flex-col">
                   <label
                     htmlFor="boardName"
-                    className="text-sm font-medium text-gray-700 mb-1"
+                    className="mb-1 text-sm font-medium text-gray-700"
                   >
                     Board Name
                   </label>
@@ -468,7 +471,7 @@ const FormExample = () => {
                     type="text"
                     id="boardName"
                     name="boardName"
-                    className="p-2 border rounded-md border-green-400 ring-green-300 focus:outline-none ring ring-opacity-40"
+                    className="p-2 border border-green-400 rounded-md ring-green-300 focus:outline-none ring ring-opacity-40"
                   />
                   <ErrorMessage
                     name="boardName"
@@ -477,11 +480,11 @@ const FormExample = () => {
                   />
                 </div>
               </div>
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+              <div className="grid grid-cols-1 gap-6 md:grid-cols-3">
                 <div className="flex flex-col">
                   <label
                     htmlFor="marksObtained"
-                    className="text-sm font-medium text-gray-700 mb-1"
+                    className="mb-1 text-sm font-medium text-gray-700"
                   >
                     Marks Obtained
                   </label>
@@ -489,7 +492,7 @@ const FormExample = () => {
                     type="number"
                     id="marksObtained"
                     name="marksObtained"
-                    className="p-2 border rounded-md border-green-400 ring-green-300 focus:outline-none ring ring-opacity-40"
+                    className="p-2 border border-green-400 rounded-md ring-green-300 focus:outline-none ring ring-opacity-40"
                   />
                   <ErrorMessage
                     name="marksObtained"
@@ -500,7 +503,7 @@ const FormExample = () => {
                 <div className="flex flex-col">
                   <label
                     htmlFor="totalMarks"
-                    className="text-sm font-medium text-gray-700 mb-1"
+                    className="mb-1 text-sm font-medium text-gray-700"
                   >
                     Total Marks
                   </label>
@@ -508,7 +511,7 @@ const FormExample = () => {
                     type="number"
                     id="totalMarks"
                     name="totalMarks"
-                    className="p-2 border rounded-md border-green-400 ring-green-300 focus:outline-none ring ring-opacity-40"
+                    className="p-2 border border-green-400 rounded-md ring-green-300 focus:outline-none ring ring-opacity-40"
                   />
                   <ErrorMessage
                     name="totalMarks"
@@ -519,7 +522,7 @@ const FormExample = () => {
                 <div className="flex flex-col">
                   <label
                     htmlFor="percentage"
-                    className="text-sm font-medium text-gray-700 mb-1"
+                    className="mb-1 text-sm font-medium text-gray-700"
                   >
                     Percentage
                   </label>
@@ -536,17 +539,17 @@ const FormExample = () => {
                           ).toFixed(4)
                         : ""
                     }
-                    className="p-2 border rounded-md bg-green-100"
+                    className="p-2 bg-green-100 border rounded-md"
                   />
                 </div>
               </div>
 
               {_id === "Diploma Engg" ? (
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div className="grid grid-cols-1 gap-6 md:grid-cols-3">
                   <div className="flex flex-col">
                     <label
                       htmlFor="mathMarks"
-                      className="text-sm font-medium text-gray-700 mb-1"
+                      className="mb-1 text-sm font-medium text-gray-700"
                     >
                       Math Marks
                     </label>
@@ -554,7 +557,7 @@ const FormExample = () => {
                       type="number"
                       id="mathMarks"
                       name="mathMarks"
-                      className="p-2 border rounded-md border-green-400 ring-green-300 focus:outline-none ring ring-opacity-40"
+                      className="p-2 border border-green-400 rounded-md ring-green-300 focus:outline-none ring ring-opacity-40"
                     />
                     <ErrorMessage
                       name="mathMarks"
@@ -565,7 +568,7 @@ const FormExample = () => {
                   <div className="flex flex-col">
                     <label
                       htmlFor="physicsMarks"
-                      className="text-sm font-medium text-gray-700 mb-1"
+                      className="mb-1 text-sm font-medium text-gray-700"
                     >
                       Science Marks
                     </label>
@@ -573,7 +576,7 @@ const FormExample = () => {
                       type="number"
                       id="physicsMarks"
                       name="physicsMarks"
-                      className="p-2 border rounded-md border-green-400 ring-green-300 focus:outline-none ring ring-opacity-40"
+                      className="p-2 border border-green-400 rounded-md ring-green-300 focus:outline-none ring ring-opacity-40"
                     />
                     <ErrorMessage
                       name="physicsMarks"
@@ -584,7 +587,7 @@ const FormExample = () => {
                   <div className="flex flex-col">
                     <label
                       htmlFor="englishMarks"
-                      className="text-sm font-medium text-gray-700 mb-1"
+                      className="mb-1 text-sm font-medium text-gray-700"
                     >
                       English Marks
                     </label>
@@ -592,7 +595,7 @@ const FormExample = () => {
                       type="number"
                       id="englishMarks"
                       name="englishMarks"
-                      className="p-2 border rounded-md border-green-400 ring-green-300 focus:outline-none ring ring-opacity-40"
+                      className="p-2 border border-green-400 rounded-md ring-green-300 focus:outline-none ring ring-opacity-40"
                     />
                     <ErrorMessage
                       name="englishMarks"
@@ -604,19 +607,19 @@ const FormExample = () => {
               ) : (
                 ""
               )}
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
                 <div className="flex flex-col">
                   <label
                     htmlFor="aadhaarNo"
-                    className="text-sm font-medium text-gray-700 mb-1"
+                    className="mb-1 text-sm font-medium text-gray-700"
                   >
                     Aadhaar No
                   </label>
                   <Field
-                    type="text"
+                    type="number"
                     id="aadhaarNo"
                     name="aadhaarNo"
-                    className="p-2 border rounded-md border-green-400 ring-green-300 focus:outline-none ring ring-opacity-40"
+                    className="p-2 border border-green-400 rounded-md ring-green-300 focus:outline-none ring ring-opacity-40"
                   />
                   <ErrorMessage
                     name="aadhaarNo"
@@ -627,7 +630,7 @@ const FormExample = () => {
                 <div className="flex flex-col">
                   <label
                     htmlFor="address"
-                    className="text-sm font-medium text-gray-700 mb-1"
+                    className="mb-1 text-sm font-medium text-gray-700"
                   >
                     Address
                   </label>
@@ -635,7 +638,7 @@ const FormExample = () => {
                     type="text"
                     id="address"
                     name="address"
-                    className="p-2 border rounded-md border-green-400 ring-green-300 focus:outline-none ring ring-opacity-40"
+                    className="p-2 border border-green-400 rounded-md ring-green-300 focus:outline-none ring ring-opacity-40"
                   />
                   <ErrorMessage
                     name="address"
@@ -644,11 +647,11 @@ const FormExample = () => {
                   />
                 </div>
               </div>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
                 <div className="flex flex-col">
                   <label
                     htmlFor="studentMobileNo"
-                    className="text-sm font-medium text-gray-700 mb-1"
+                    className="mb-1 text-sm font-medium text-gray-700"
                   >
                     Student Mobile No
                   </label>
@@ -656,7 +659,7 @@ const FormExample = () => {
                     type="number"
                     id="studentMobileNo"
                     name="studentMobileNo"
-                    className="p-2 border rounded-md border-green-400 ring-green-300 focus:outline-none ring ring-opacity-40"
+                    className="p-2 border border-green-400 rounded-md ring-green-300 focus:outline-none ring ring-opacity-40"
                   />
                   <ErrorMessage
                     name="studentMobileNo"
@@ -667,7 +670,7 @@ const FormExample = () => {
                 <div className="flex flex-col">
                   <label
                     htmlFor="parentMobileNo"
-                    className="text-sm font-medium text-gray-700 mb-1"
+                    className="mb-1 text-sm font-medium text-gray-700"
                   >
                     Parent Mobile No
                   </label>
@@ -675,7 +678,7 @@ const FormExample = () => {
                     type="number"
                     id="parentMobileNo"
                     name="parentMobileNo"
-                    className="p-2 border rounded-md border-green-400 ring-green-300 focus:outline-none ring ring-opacity-40"
+                    className="p-2 border border-green-400 rounded-md ring-green-300 focus:outline-none ring ring-opacity-40"
                   />
                   <ErrorMessage
                     name="parentMobileNo"
@@ -684,11 +687,11 @@ const FormExample = () => {
                   />
                 </div>
               </div>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
                 <div className="flex flex-col">
                   <label
                     htmlFor="prevAdmissionRollNo"
-                    className="text-sm font-medium text-gray-700 mb-1"
+                    className="mb-1 text-sm font-medium text-gray-700"
                   >
                     Previous Admission Roll No (optional)
                   </label>
@@ -696,13 +699,13 @@ const FormExample = () => {
                     type="number"
                     id="prevAdmissionRollNo"
                     name="prevAdmissionRollNo"
-                    className="p-2 border rounded-md border-green-400 ring-green-300 focus:outline-none ring ring-opacity-40"
+                    className="p-2 border border-green-400 rounded-md ring-green-300 focus:outline-none ring ring-opacity-40"
                   />
                 </div>
                 <div className="flex flex-col">
                   <label
                     htmlFor="prevTradeAndInstitute"
-                    className="text-sm font-medium text-gray-700 mb-1"
+                    className="mb-1 text-sm font-medium text-gray-700"
                   >
                     Previous Trade and Institute (optional)
                   </label>
@@ -710,14 +713,14 @@ const FormExample = () => {
                     type="text"
                     id="prevTradeAndInstitute"
                     name="prevTradeAndInstitute"
-                    className="p-2 border rounded-md border-green-400 ring-green-300 focus:outline-none ring ring-opacity-40"
+                    className="p-2 border border-green-400 rounded-md ring-green-300 focus:outline-none ring ring-opacity-40"
                   />
                 </div>
               </div>
               <div className="flex flex-col">
                 <label
                   htmlFor="remarks"
-                  className="text-sm font-medium text-gray-700 mb-1"
+                  className="mb-1 text-sm font-medium text-gray-700"
                 >
                   Remarks (optional)
                 </label>
@@ -725,13 +728,13 @@ const FormExample = () => {
                   type="text"
                   id="remarks"
                   name="remarks"
-                  className="p-2 border rounded-md border-green-400 ring-green-300 focus:outline-none ring ring-opacity-40"
+                  className="p-2 border border-green-400 rounded-md ring-green-300 focus:outline-none ring ring-opacity-40"
                 />
               </div>
               <div className="flex items-center justify-end">
                 <button
                   type="submit"
-                  className="px-4 py-2 bg-green-600 text-white rounded-md hover:bg-green-700 focus:outline-none focus:ring focus:ring-green-300"
+                  className="px-4 py-2 text-white bg-green-600 rounded-md hover:bg-green-700 focus:outline-none focus:ring focus:ring-green-300"
                   disabled={isSubmitting}
                 >
                   {isSubmitting ? "Plz wait ........" : "Submit"}

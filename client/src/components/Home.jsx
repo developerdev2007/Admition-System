@@ -20,8 +20,8 @@ const CheckboxApp = () => {
   return (
     <>
       <Header />
-      <div className="min-h-20 flex mt-10 justify-center ">
-        <div className="checkbox-container rounded-md bg-blue-200 p-12 space-y-4 shadow-lg">
+      <div className="flex justify-center mt-10 min-h-20 ">
+        <div className="p-12 space-y-4 bg-blue-300 rounded-md shadow-xl checkbox-container">
           <div
             className={`checkbox-option flex items-center p-3 rounded-md cursor-pointer transition ${
               selectedOption === "Diploma Engg Lateral Entry"
