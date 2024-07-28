@@ -8,6 +8,7 @@ const CheckboxApp = () => {
   const [selectedCategories, setSelectedCategories] = useState({
     AIC: 0,
     GENERAL: 0,
+    GENERAL_EWS: 0,
     SC_SCD: 0,
     BCA_BCB: 0,
     TFW: 0,
@@ -43,8 +44,18 @@ const CheckboxApp = () => {
 
   const HandleSubmit = async () => {
     setLoadder(true);
-    const { AIC, GENERAL, SC_SCD, BCA_BCB, TFW, EWS, PM_Care, HARIHAR, OTHER } =
-      selectedCategories;
+    const {
+      AIC,
+      GENERAL,
+      GENERAL_EWS,
+      SC_SCD,
+      BCA_BCB,
+      TFW,
+      EWS,
+      PM_Care,
+      HARIHAR,
+      OTHER,
+    } = selectedCategories;
 
     const DET = parseInt(
       `${selectedOption === "Diploma Engg Lateral Entry" ? 1 : 0}`
@@ -58,6 +69,7 @@ const CheckboxApp = () => {
       DAT,
       AIC,
       GENERAL,
+      GENERAL_EWS,
       SC_SCD,
       BCA_BCB,
       TFW,
@@ -75,6 +87,7 @@ const CheckboxApp = () => {
       setSelectedCategories({
         AIC: 0,
         GENERAL: 0,
+        GENERAL_EWS: 0,
         SC_SCD: 0,
         BCA_BCB: 0,
         TFW: 0,
@@ -94,10 +107,10 @@ const CheckboxApp = () => {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-100">
-      <div className="bg-white p-8 rounded-lg shadow-md w-full sm:max-w-md">
-        <div className="bg-cartoon rounded-lg p-6 mb-6">
-          <h1 className="text-xl font-semibold mb-4">Generate Report</h1>
+    <div className="flex items-center justify-center min-h-screen bg-gray-100">
+      <div className="w-full p-8 bg-white rounded-lg shadow-md sm:max-w-md">
+        <div className="p-6 mb-6 rounded-lg bg-cartoon">
+          <h1 className="mb-4 text-xl font-semibold">Generate Report</h1>
           <div className="grid gap-4">
             <div className="mb-4">
               <label className="block text-sm text-gray-700">
@@ -120,11 +133,11 @@ const CheckboxApp = () => {
                     onChange={() =>
                       handleOptionChange("Diploma Engg Lateral Entry")
                     }
-                    className="h-4 w-4 text-green-500 focus:ring-green-500 border-gray-300 rounded-full"
+                    className="w-4 h-4 text-green-500 border-gray-300 rounded-full focus:ring-green-500"
                   />
                   <label
                     htmlFor="lateralEntry"
-                    className="ml-2 block text-sm text-gray-900"
+                    className="block ml-2 text-sm text-gray-900"
                   >
                     Lateral Entry
                   </label>
@@ -143,11 +156,11 @@ const CheckboxApp = () => {
                     value="Diploma Engg"
                     checked={selectedOption === "Diploma Engg"}
                     onChange={() => handleOptionChange("Diploma Engg")}
-                    className="h-4 w-4 text-green-500 focus:ring-green-500 border-gray-300 rounded-full"
+                    className="w-4 h-4 text-green-500 border-gray-300 rounded-full focus:ring-green-500"
                   />
                   <label
                     htmlFor="diplomaEngg"
-                    className="ml-2 block text-sm text-gray-900"
+                    className="block ml-2 text-sm text-gray-900"
                   >
                     Diploma Engg
                   </label>
@@ -163,11 +176,11 @@ const CheckboxApp = () => {
                     name={category}
                     checked={selectedCategories[category] === 1}
                     onChange={() => handleCategoryChange(category)}
-                    className="h-4 w-4 text-green-500 focus:ring-green-500 border-gray-300 rounded"
+                    className="w-4 h-4 text-green-500 border-gray-300 rounded focus:ring-green-500"
                   />
                   <label
                     htmlFor={category}
-                    className="ml-2 block text-sm text-gray-900"
+                    className="block ml-2 text-sm text-gray-900"
                   >
                     {category}
                   </label>
@@ -183,18 +196,18 @@ const CheckboxApp = () => {
                   (value) => value === 1
                 )}
                 onChange={handleSelectAll}
-                className="h-4 w-4 text-green-500 focus:ring-green-500 border-gray-300 rounded"
+                className="w-4 h-4 text-green-500 border-gray-300 rounded focus:ring-green-500"
               />
               <label
                 htmlFor="selectAll"
-                className="ml-2 block text-sm text-gray-900"
+                className="block ml-2 text-sm text-gray-900"
               >
                 Select All
               </label>
             </div>
             <div className="mt-4">
               <button
-                className="py-2 px-4 rounded-lg bg-green-500 text-white focus:outline-none"
+                className="px-4 py-2 text-white bg-green-500 rounded-lg focus:outline-none"
                 onClick={HandleSubmit}
                 disabled={Loadder}
               >

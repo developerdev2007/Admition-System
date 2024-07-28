@@ -65,6 +65,7 @@ let validationSchema = Yup.object({
 const categoryOptions = [
   "AIC",
   "GENERAL",
+  "GENERAL(EWS)",
   "SC/SCD",
   "BCA/BCB",
   "TFW",

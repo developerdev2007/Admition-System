@@ -53,6 +53,7 @@ app.post("/Report", async (req, res) => {
       DET,
       DAT,
       AIC,
+      GENERAL_EWS,
       GENERAL,
       SC_SCD,
       BCA_BCB,
@@ -80,6 +81,10 @@ app.post("/Report", async (req, res) => {
       {
         name: "AIC",
         value: "AIC",
+      },
+      {
+        name: "General_EWS",
+        value: "General(EWS)",
       },
       {
         name: "GENERAL",
@@ -241,11 +246,13 @@ app.post("/Report", async (req, res) => {
     // Specify the path where you want to save the file
     const filePath = `doc/${query.Course}${AIC === 1 ? "-AIC" : ""}${
       GENERAL === 1 ? "-GENERAL" : ""
-    }${SC_SCD === 1 ? "-SC_SCD" : ""}${BCA_BCB === 1 ? "-BCA_BCB" : ""}${
-      TFW === 1 ? "-TFW" : ""
-    }${EWS === 1 ? "-EWS" : ""}${PM_Care === 1 ? "-PM_Care" : ""}${
-      HARIHAR === 1 ? "-HARIHAR" : ""
-    }${OTHER === 1 ? "-OTHER" : ""}-${Date.now()}.xlsx`;
+    }${GENERAL_EWS === 1 ? "-GENERAL_EWS" : ""}${
+      SC_SCD === 1 ? "-SC_SCD" : ""
+    }${BCA_BCB === 1 ? "-BCA_BCB" : ""}${TFW === 1 ? "-TFW" : ""}${
+      EWS === 1 ? "-EWS" : ""
+    }${PM_Care === 1 ? "-PM_Care" : ""}${HARIHAR === 1 ? "-HARIHAR" : ""}${
+      OTHER === 1 ? "-OTHER" : ""
+    }-${Date.now()}.xlsx`;
 
     fs.writeFile(filePath, buffer, (err) => {
       if (err) {

@@ -15,6 +15,7 @@ const UserSchema = new Schema({
   RegistrationNo: {
     type: Number,
     required: true,
+    unique: true,
   },
   Qualification: {
     type: String,
@@ -70,7 +71,7 @@ const UserSchema = new Schema({
     type: Number,
   },
   AadhaarNo: {
-    type: String,
+    type: Number,
     unique: true,
   },
   Address: {
