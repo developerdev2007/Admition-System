@@ -66,6 +66,7 @@ const categoryOptions = [
   "AIC",
   "GENERAL",
   "GENERAL(EWS)",
+  "GENERAL(TFW)",
   "SC/SCD",
   "BCA/BCB",
   "TFW",
