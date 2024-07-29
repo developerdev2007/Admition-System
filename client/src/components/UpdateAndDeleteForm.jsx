@@ -8,7 +8,7 @@ import Loading from "./Loading";
 
 let validationSchema = Yup.object({
   candidateName: Yup.string().required("Candidate Name  is required"),
-  RegistrationNo: Yup.number().required("RegistrationNo   is required"),
+  // RegistrationNo: Yup.string().required("RegistrationNo   is required"),
   fatherName: Yup.string().required("fatherName Name  is required"),
   motherName: Yup.string().required("motherName Name  is required"),
   dateOfBirth: Yup.string().required("dateOfBirth Name  is required"),
@@ -36,6 +36,7 @@ const categoryOptions = [
   "AIC",
   "GENERAL",
   "GENERAL(EWS)",
+  "GENERAL(TFW)",
   "SC/SCD",
   "BCA/BCB",
   "TFW",
@@ -308,7 +309,7 @@ const FormExample = () => {
                       Registration No
                     </label>
                     <Field
-                      type="number"
+                      type="text"
                       id="RegistrationNo"
                       name="RegistrationNo"
                       className="p-2 border border-green-400 rounded-md ring-green-300 focus:outline-none ring ring-opacity-40"

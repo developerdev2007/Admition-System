@@ -176,7 +176,8 @@ const FormExample = () => {
       PreviousTrade: prevTradeAndInstitute,
       Income: income,
       Remarks: remarks,
-      RegistrationNo: RegistrationNo,
+      RegistrationNo:
+        _id === "Diploma Engg" ? `D${RegistrationNo}` : `L${RegistrationNo}`,
     };
 
     try {

@@ -43,6 +43,7 @@ app.post("/newUser", async (req, res) => {
 
     res.status(200).json({ msg: `${input.Name} 's form save ` });
   } catch (error) {
+    console.log(error);
     res.status(404).json({ msg: "err" });
   }
 });
@@ -53,8 +54,9 @@ app.post("/Report", async (req, res) => {
       DET,
       DAT,
       AIC,
-      GENERAL_EWS,
       GENERAL,
+      GENERAL_EWS,
+      GENERAL_TFW,
       SC_SCD,
       BCA_BCB,
       TFW,
@@ -63,7 +65,6 @@ app.post("/Report", async (req, res) => {
       HARIHAR,
       OTHER,
     } = req.body;
-
     // Build the query object based on conditions
     const query = {};
 
@@ -83,8 +84,12 @@ app.post("/Report", async (req, res) => {
         value: "AIC",
       },
       {
-        name: "General_EWS",
-        value: "General(EWS)",
+        name: "GENERAL_EWS",
+        value: "GENERAL(EWS)",
+      },
+      {
+        name: "GENERAL_TFW",
+        value: "GENERAL(TFW)",
       },
       {
         name: "GENERAL",
@@ -124,13 +129,16 @@ app.post("/Report", async (req, res) => {
       (category) => req.body[category.name] === 1
     );
     let selectedValues;
-    if (selectedCategories.length < 8) {
+    if (selectedCategories.length < 10) {
       selectedValues = selectedCategories.map((category) => category.value);
       query.Category = { $in: selectedValues };
     }
+    // console.log(query.Category);
+    // console.log(query);
 
     const results = await User.find(query).sort({ Percentage: -1 }).lean();
 
+    // console.log(results);
     //  merge for catogry
 
     let mergedMap = {};
@@ -247,12 +255,12 @@ app.post("/Report", async (req, res) => {
     const filePath = `doc/${query.Course}${AIC === 1 ? "-AIC" : ""}${
       GENERAL === 1 ? "-GENERAL" : ""
     }${GENERAL_EWS === 1 ? "-GENERAL_EWS" : ""}${
-      SC_SCD === 1 ? "-SC_SCD" : ""
-    }${BCA_BCB === 1 ? "-BCA_BCB" : ""}${TFW === 1 ? "-TFW" : ""}${
-      EWS === 1 ? "-EWS" : ""
-    }${PM_Care === 1 ? "-PM_Care" : ""}${HARIHAR === 1 ? "-HARIHAR" : ""}${
-      OTHER === 1 ? "-OTHER" : ""
-    }-${Date.now()}.xlsx`;
+      GENERAL_TFW === 1 ? "-GENERAL_TFW" : ""
+    }${SC_SCD === 1 ? "-SC_SCD" : ""}${BCA_BCB === 1 ? "-BCA_BCB" : ""}${
+      TFW === 1 ? "-TFW" : ""
+    }${EWS === 1 ? "-EWS" : ""}${PM_Care === 1 ? "-PM_Care" : ""}${
+      HARIHAR === 1 ? "-HARIHAR" : ""
+    }${OTHER === 1 ? "-OTHER" : ""}-${Date.now()}.xlsx`;
 
     fs.writeFile(filePath, buffer, (err) => {
       if (err) {

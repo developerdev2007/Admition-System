@@ -13,7 +13,7 @@ const UserSchema = new Schema({
     required: true,
   },
   RegistrationNo: {
-    type: Number,
+    type: String,
     required: true,
     unique: true,
   },
