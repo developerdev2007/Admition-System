@@ -56,9 +56,12 @@ app.post("/Report", async (req, res) => {
       AIC,
       GENERAL,
       GENERAL_EWS,
+      GENERAL_EWS_TFW,
       GENERAL_TFW,
       SC_SCD,
       BCA_BCB,
+      SC_SCD_TFW,
+      BCA_BCB_TFW,
       TFW,
       EWS,
       PM_Care,
@@ -88,6 +91,10 @@ app.post("/Report", async (req, res) => {
         value: "GENERAL(EWS)",
       },
       {
+        name: "GENERAL_EWS_TFW",
+        value: "GENERAL(EWS)(TFW)",
+      },
+      {
         name: "GENERAL_TFW",
         value: "GENERAL(TFW)",
       },
@@ -102,6 +109,14 @@ app.post("/Report", async (req, res) => {
       {
         name: "BCA_BCB",
         value: "BCA/BCB",
+      },
+      {
+        name: "BCA_BCB_TFW",
+        value: "BCA/BCB(TFW)",
+      },
+      {
+        name: "SC_SCD_TFW",
+        value: "SC/SCD(TFW)",
       },
       {
         name: "TFW",
@@ -255,12 +270,16 @@ app.post("/Report", async (req, res) => {
     const filePath = `doc/${query.Course}${AIC === 1 ? "-AIC" : ""}${
       GENERAL === 1 ? "-GENERAL" : ""
     }${GENERAL_EWS === 1 ? "-GENERAL_EWS" : ""}${
-      GENERAL_TFW === 1 ? "-GENERAL_TFW" : ""
-    }${SC_SCD === 1 ? "-SC_SCD" : ""}${BCA_BCB === 1 ? "-BCA_BCB" : ""}${
-      TFW === 1 ? "-TFW" : ""
-    }${EWS === 1 ? "-EWS" : ""}${PM_Care === 1 ? "-PM_Care" : ""}${
-      HARIHAR === 1 ? "-HARIHAR" : ""
-    }${OTHER === 1 ? "-OTHER" : ""}-${Date.now()}.xlsx`;
+      GENERAL_EWS_TFW === 1 ? "-GENERAL_EWS_TFW" : ""
+    }${GENERAL_TFW === 1 ? "-GENERAL_TFW" : ""}${
+      SC_SCD === 1 ? "-SC_SCD" : ""
+    }${BCA_BCB === 1 ? "-BCA_BCB" : ""}${
+      SC_SCD_TFW === 1 ? "-SC_SCD_TFW" : ""
+    }${BCA_BCB_TFW === 1 ? "-BCA_BCB_TFW" : ""}${TFW === 1 ? "-TFW" : ""}${
+      EWS === 1 ? "-EWS" : ""
+    }${PM_Care === 1 ? "-PM_Care" : ""}${HARIHAR === 1 ? "-HARIHAR" : ""}${
+      OTHER === 1 ? "-OTHER" : ""
+    }-${Date.now()}.xlsx`;
 
     fs.writeFile(filePath, buffer, (err) => {
       if (err) {
