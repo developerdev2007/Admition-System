@@ -164,6 +164,7 @@ app.post("/Report", async (req, res) => {
       } else {
         mergedMap[item.RegistrationNo].Category += "/" + item.Category;
       }
+      ``;
     });
 
     const expected = Object.values(mergedMap);
@@ -217,18 +218,18 @@ app.post("/Report", async (req, res) => {
         }
 
         // Then, compare by math marks
-        if (b.Math !== a.Math) {
-          return b.Math - a.Math;
+        if (b.math !== a.math) {
+          return b.math - a.math;
         }
 
         // Next, compare by physics marks
-        if (b.Physics !== a.Physics) {
-          return b.Physics - a.Physics;
+        if (b.science !== a.science) {
+          return b.science - a.science;
         }
 
         // After that, compare by English marks
-        if (b.English !== a.English) {
-          return b.English - a.English;
+        if (b.english !== a.english) {
+          return b.english - a.english;
         }
 
         const dobA = parseDate(a.DOB);
